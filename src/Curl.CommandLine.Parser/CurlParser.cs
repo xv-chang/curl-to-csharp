@@ -50,8 +50,7 @@ namespace Curl.CommandLine.Parser
 
                 if (commandLine.IsParameter())
                 {
-                    var parameter = commandLine.ReadParameter();
-                    EvaluateParameter(parameter, ref commandLine, parseResult);
+                    EvaluateParameter(ref commandLine, parseResult);
                 }
                 else
                 {
@@ -85,10 +84,10 @@ namespace Curl.CommandLine.Parser
             }
         }
 
-        private void EvaluateParameter(Span<char> parameter, ref Span<char> commandLine,
+        private void EvaluateParameter(ref Span<char> commandLine,
             ConvertResult<CurlOptions> convertResult)
         {
-            var par = parameter.ToString();
+            var par = commandLine.ReadParameter().ToString();
 
             foreach (var evaluator in _evaluators)
             {
